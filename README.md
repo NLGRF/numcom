@@ -8,5 +8,3 @@
 ## write
 - pip install -r requirements.txt
 - conda create --name <envname> --file requirements.txt
-
-## https://www.geeksforgeeks.org/program-for-bisection-method/

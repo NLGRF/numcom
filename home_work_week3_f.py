@@ -1,28 +1,31 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# MAX_ITER = 2000
+
+
 def func(R):
-    return np.exp(-0.005*R)*np.cos(np.sqrt(2000  - 0.01*(R**2)*(0.05))) - 0.01
+    return (np.exp(-0.005*R)*np.cos(np.sqrt(2000  - 0.01*(R**2)*(0.05))) - 0.01)
 
 
-# Prints root of func(x)
-# with error of EPSILON
+# Prints root of func(x) in interval [a, b]
 
 
-def bisection(a, b):
+def regulaFalsi(a, b):
+    if func(a) * func(b) >= 0:
+        print("You have not assumed right a and b")
+        return -1
 
-    if (func(a) * func(b) >= 0):
-        print("You have not assumed right a and b\n")
-        return
-
-    c = a
+    c = a  # Initialize result
     step = 1
+    # for i in range(MAX_ITER):
     while ((b-a) >= 0.01):
         print("step: ", "%d" % step,"err: ", "%.2f" % (b-a))
-        # Find middle point
-        c = (a+b)/2
 
-        # Check if middle point is root
+        # Find the point that touches x axis
+        c = (a*func(b) - b*func(a)) / (func(b) - func(a))
+
+        # Check if the above found point is root
         if (func(c) == 0.0):
             break
 
@@ -31,20 +34,19 @@ def bisection(a, b):
             b = c
         else:
             a = c
-        
+
         step = step + 1
     
     print("Last step : ", "%d" % step)
     print("Last err : ", "%d" % (b-a))
-    print("The value of root is : ", "%.4f" % c)
+    print("The value of root is : ", '%.4f' % c)
 
 
-# Driver code
+# Driver code to test above function
 # Initial values assumed
 a = -100
 b = 2000
-bisection(a, b)
-
+regulaFalsi(a, b)
 
 R = np.linspace(-100, 2000, 2101)
 # print(c)
